@@ -33,6 +33,7 @@ class _PagePlantState extends State<PagePlant> {
           """.trim());
 
   double _minPercent = 0.1;
+  double _maxPercent = 1;
   double _scrollEffectPercent = 0.1;
 
   double _headerSizeToBlur = 400;
@@ -47,6 +48,7 @@ class _PagePlantState extends State<PagePlant> {
         newPercent = scroll / _headerSizeToBlur;
       }
       _scrollEffectPercent = max(_minPercent, newPercent);
+      _scrollEffectPercent = min(_maxPercent, _scrollEffectPercent);
     });
   }
 
@@ -101,6 +103,7 @@ class _PagePlantState extends State<PagePlant> {
                   _wiki(context),
                   SizedBox(height: 30),
                   _chrolology(context),
+                  SizedBox(height: 300),
                 ],
               ),
             ),
