@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gardening/pages/plant/page_plant.dart';
+import 'package:gardening/pages/home_no_connection/home_no_connection.dart';
 
 void main() {
   runApp(MyApp());
@@ -27,7 +28,8 @@ class MyApp extends StatelessWidget {
         // closer together (more dense) than on mobile platforms.
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: PagePlant(),
+      home: HomeNotConnect(),
     );
   }
 }
+
