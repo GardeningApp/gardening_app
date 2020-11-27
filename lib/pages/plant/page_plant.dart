@@ -3,14 +3,7 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-class Plant {
-  String image;
-  String plantName;
-  String plantCategory;
-  String wiki;
 
-  Plant({this.image, this.plantName, this.plantCategory, this.wiki});
-}
 
 Color textColor = Colors.white;
 Color primaryColor = Colors.green;
