@@ -3,8 +3,9 @@ class Plant {
   String plantName;
   String plantCategory;
   String wiki;
+  List<Chronologie_element>chronology;
 
-  Plant({this.image, this.plantName, this.plantCategory, this.wiki});
+  Plant({this.image, this.plantName, this.plantCategory, this.wiki, this.chronology});
 }
 
 class Chronologie_element {
