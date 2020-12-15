@@ -2,10 +2,11 @@ class Plant {
   String image;
   String plantName;
   String plantCategory;
-  List <Comment>wiki;
+  String wiki;
+  List <Comment>comments;
   List<Chronologie_element>chronology;
 
-  Plant({this.image, this.plantName, this.plantCategory, this.wiki, this.chronology});
+  Plant({this.image, this.plantName, this.plantCategory,this.wiki, this.comments, this.chronology});
 }
 
 class Chronologie_element {

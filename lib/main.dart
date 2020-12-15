@@ -43,12 +43,12 @@ class MyApp extends StatelessWidget {
               Chronologie_element(actionName: "Arrosage", date: "20/11/2020")],
             image: "assets/images/aloe.jpg",
             wiki:
-            Comment[Comment(description: "sssss")];
+            """ L'Aloe vera est une espèce d'aloès d'origine incertaine mais cultivée de longue date en région méditerranéenne, Afrique du Nord, aux îles Canaries et au Cap-Vert.
+                Cultiver l'aloe vera est relativement facile. La plante d'aloe vera supporte mal l'humidité, le substrat doit être parfaitement drainant. Privilégiez un mélange de sable et terreau, disposez des billes d'argile au fond du pot. On la conserve en intérieur entre 18 à 20°, ou dehors en période estivale.
+                """.trim(),
+            comments: [Comment(description: "fffff")]
 
-            // """
-          //L'Aloe vera est une espèce d'aloès d'origine incertaine mais cultivée de longue date en région méditerranéenne, Afrique du Nord, aux îles Canaries et au Cap-Vert.
-         // Cultiver l'aloe vera est relativement facile. La plante d'aloe vera supporte mal l'humidité, le substrat doit être parfaitement drainant. Privilégiez un mélange de sable et terreau, disposez des billes d'argile au fond du pot. On la conserve en intérieur entre 18 à 20°, ou dehors en période estivale.
-         // """.trim()),
+      ),
       ),
     );
   }

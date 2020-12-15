@@ -13,7 +13,7 @@ Color primaryColor = Colors.green;
 Color secondaryColor = Colors.yellow;
 
 class PagePlant extends StatefulWidget {
-  const PagePlant({Key key, this.plant}) : super(key: key);
+  const PagePlant({Key key, this.plant, List<Comment> comments}) : super(key: key);
 
   @override
   _PagePlantState createState() => _PagePlantState();
