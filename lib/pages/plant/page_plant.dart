@@ -1,5 +1,7 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/rendering.dart';
+
 import 'plante.dart';
 
 import 'package:flutter/material.dart';
@@ -251,6 +253,20 @@ class _Wiki extends StatelessWidget {
   }
 }
 
+class PlantComment extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    Comment comment = Comment();
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(comment.description),
+      ),
+    );
+  }
+}
+
+
 enum _ChronologyStepType { first, middle, end }
 
 class _Chronology extends StatelessWidget {
@@ -349,6 +365,9 @@ class _Chronology extends StatelessWidget {
       ),
     );
   }
+
+
+
 
   @override
   Widget build(BuildContext context) {
