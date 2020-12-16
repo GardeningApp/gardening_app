@@ -93,6 +93,8 @@ class _PagePlantState extends State<PagePlant> {
                   _wiki(context),
                   SizedBox(height: 30),
                   _chrolology(context),
+                  SizedBox(height: 30),
+                  _comments(),
                   SizedBox(height: 300),
                 ],
               ),
@@ -130,7 +132,21 @@ class _PagePlantState extends State<PagePlant> {
       plantChronology : this.widget.plant.chronology,
     );
   }
+  Widget _comments() {
+    final List<PlantComment> plantCommentWidgets = [];
+    for (var i = 0;i<this.widget.plant.comments.length; ++i) {
+      final commentAtIndexI = this.widget.plant.comments[i];
+      plantCommentWidgets.add(PlantComment(
+        comment: commentAtIndexI,
+      ));
+    }
+    return Column(
+      children: plantCommentWidgets,
+    );
+  }
 }
+
+
 
 class _PlantTitle extends StatelessWidget {
   final String plantName;
@@ -253,18 +269,27 @@ class _Wiki extends StatelessWidget {
   }
 }
 
+
 class PlantComment extends StatelessWidget {
+  final Comment comment;
+
+  PlantComment({Key key, this.comment}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    Comment comment = Comment();
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(comment.description),
       ),
+
     );
+
   }
+
 }
+
+
+
 
 
 enum _ChronologyStepType { first, middle, end }
