@@ -401,6 +401,7 @@ class _Chronology extends StatelessWidget {
 
 
 
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -427,5 +428,8 @@ class _Chronology extends StatelessWidget {
         }).toList()
       ),
     );
+
   }
+
 }
+
