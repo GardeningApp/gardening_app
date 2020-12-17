@@ -279,9 +279,16 @@ class PlantComment extends StatelessWidget {
     return Container(
       child: Padding(
         padding: const EdgeInsets.all(8.0),
-        child: Text(comment.description),
+        child: Text(
+            comment.description,
+              style: TextStyle(
+          color: textColor,
+          fontSize: 20,
+          fontWeight: FontWeight.w800,
+        ),
       ),
 
+    ),
     );
 
   }
