@@ -28,7 +28,43 @@ class InternGroup extends StatelessWidget {
           ),
           itemBuilder: (BuildContext context, int index) {
             var p = plants[index];
-            return Text(p.plantName);
+            return GestureDetector(
+              onTap: (){
+                Navigator.push(context, MaterialPageRoute(builder: (context){
+                  return PagePlant(
+                    plant: p,
+                  );
+                }));
+              },
+              child: Card(
+                elevation: 6,
+                margin: EdgeInsets.all(8),
+                shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(22)),
+                clipBehavior: Clip.hardEdge,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                    SizedBox(
+                      height: 130,
+                      child: Image.asset(
+                        p.image,
+                        fit: BoxFit.fitWidth,
+                      ),
+                    ),
+                  Expanded(
+                    child: Center(
+                      child: Text(
+                          p.plantName,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold
+                        ),
+                      ),
+                    ),
+                  )
+                ]),
+              ),
+            );
           }),
       //Rajouter des Widgets Flutter pour avoir les images et le nom, que la zone soit cliquable
     );
