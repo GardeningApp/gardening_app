@@ -1,36 +1,26 @@
 import 'dart:math';
 import 'dart:ui';
+import 'package:flutter/rendering.dart';
+
+import 'plante.dart';
 
 import 'package:flutter/material.dart';
 
-class Plant {
-  String image;
-  String plantName;
-  String plantCategory;
-  String wiki;
 
-  Plant({this.image, this.plantName, this.plantCategory, this.wiki});
-}
 
 Color textColor = Colors.white;
 Color primaryColor = Colors.green;
 Color secondaryColor = Colors.yellow;
 
 class PagePlant extends StatefulWidget {
+  const PagePlant({Key key, this.plant, List<Comment> comments}) : super(key: key);
+
   @override
   _PagePlantState createState() => _PagePlantState();
+  final Plant plant;
 }
 
 class _PagePlantState extends State<PagePlant> {
-  final Plant plant = Plant(
-      plantName: "My Aloe",
-      plantCategory: "Aloe Verra",
-      image: "assets/images/aloe.jpg",
-      wiki:
-          """
-          L'Aloe vera est une espèce d'aloès d'origine incertaine mais cultivée de longue date en région méditerranéenne, Afrique du Nord, aux îles Canaries et au Cap-Vert.
-          Cultiver l'aloe vera est relativement facile. La plante d'aloe vera supporte mal l'humidité, le substrat doit être parfaitement drainant. Privilégiez un mélange de sable et terreau, disposez des billes d'argile au fond du pot. On la conserve en intérieur entre 18 à 20°, ou dehors en période estivale.
-          """.trim());
 
   double _minPercent = 0.1;
   double _maxPercent = 1;
@@ -103,6 +93,8 @@ class _PagePlantState extends State<PagePlant> {
                   _wiki(context),
                   SizedBox(height: 30),
                   _chrolology(context),
+                  SizedBox(height: 30),
+                  _comments(),
                   SizedBox(height: 300),
                 ],
               ),
@@ -115,15 +107,15 @@ class _PagePlantState extends State<PagePlant> {
 
   Widget _background(BuildContext context) {
     return Image.asset(
-      this.plant.image,
+      this.widget.plant.image,
       fit: BoxFit.cover,
     );
   }
 
   Widget _title(BuildContext context) {
     return _PlantTitle(
-      plantCategory: this.plant.plantCategory,
-      plantName: this.plant.plantName,
+      plantCategory: this.widget.plant.plantCategory,
+      plantName: this.widget.plant.plantName,
     );
   }
 
@@ -132,13 +124,29 @@ class _PagePlantState extends State<PagePlant> {
   }
 
   Widget _wiki(BuildContext context) {
-    return _Wiki(wiki: this.plant.wiki);
+    return _Wiki(wiki: this.widget.plant.wiki);
   }
 
   Widget _chrolology(BuildContext context) {
-    return _Chronology();
+    return _Chronology(
+      plantChronology : this.widget.plant.chronology,
+    );
+  }
+  Widget _comments() {
+    final List<PlantComment> plantCommentWidgets = [];
+    for (var i = 0;i<this.widget.plant.comments.length; ++i) {
+      final commentAtIndexI = this.widget.plant.comments[i];
+      plantCommentWidgets.add(PlantComment(
+        comment: commentAtIndexI,
+      ));
+    }
+    return Column(
+      children: plantCommentWidgets,
+    );
   }
 }
+
+
 
 class _PlantTitle extends StatelessWidget {
   final String plantName;
@@ -261,10 +269,43 @@ class _Wiki extends StatelessWidget {
   }
 }
 
+
+class PlantComment extends StatelessWidget {
+  final Comment comment;
+
+  PlantComment({Key key, this.comment}) : super(key: key);
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Text(
+            comment.description,
+              style: TextStyle(
+          color: textColor,
+          fontSize: 20,
+          fontWeight: FontWeight.w800,
+        ),
+      ),
+
+    ),
+    );
+
+  }
+
+}
+
+
+
+
+
 enum _ChronologyStepType { first, middle, end }
 
 class _Chronology extends StatelessWidget {
   double linesHeight = 3;
+  final List<Chronologie_element> plantChronology;
+
+   _Chronology({Key key, this.plantChronology}) : super(key: key);
 
   Widget _circle(IconData icon) {
     return Center(
@@ -357,22 +398,38 @@ class _Chronology extends StatelessWidget {
     );
   }
 
+
+
+
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       scrollDirection: Axis.horizontal,
       child: Row(
-        children: [
-          _chronologyStep(name: "Mise en pot", date: "12/10/2020", stepType: _ChronologyStepType.first),
-          _chronologyStep(name: "Arrosage", date: "13/10/2020", stepType: _ChronologyStepType.middle),
-          _chronologyStep(name: "Arrosage", date: "14/10/2020", stepType: _ChronologyStepType.middle),
-          _chronologyStep(name: "Arrosage", date: "15/10/2020", stepType: _ChronologyStepType.middle),
-          _chronologyStep(name: "Arrosage", date: "16/10/2020", stepType: _ChronologyStepType.middle),
-          _chronologyStep(name: "Arrosage", date: "17/10/2020", stepType: _ChronologyStepType.middle),
-          _chronologyStep(name: "Arrosage", date: "18/10/2020", stepType: _ChronologyStepType.middle),
-          _chronologyStep(name: "Découpe", date: "19/10/2020", stepType: _ChronologyStepType.end),
-        ],
+        children: this.plantChronology.asMap().entries.map((entry) {
+          _ChronologyStepType stepType;
+          int key = entry.key;
+          var value = entry.value;
+          if (key == 0) {
+            stepType = _ChronologyStepType.first;
+
+          } else if (key == plantChronology.length -1){
+            stepType = _ChronologyStepType.end;
+          } else {
+            stepType = _ChronologyStepType.middle;
+          }
+          return _chronologyStep(
+            name: value.actionName,
+            date: value.date,
+            stepType: stepType
+          );
+
+        }).toList()
       ),
     );
+
   }
+
 }
+
